@@ -18,7 +18,7 @@ const addContact = async (req, res) => {
   console.log(req)
     const result = await Contact.create({...req.body, owner});
     res.status(201).json(result);
-   }
+}
 
 
 const removeContact = async (req, res) => {
@@ -28,11 +28,23 @@ const removeContact = async (req, res) => {
       throw HttpError(404, `Contact with ${contactId} not found`)
     }
     res.status(200).json({message: "contact deleted"})
-  }
+}
 
+const updateContactById = async (req, res) => {
+    const { contactId } = req.params
+    const result = await Contact.findByIdAndUpdate(contactId, req.body, {new: true})
+    if (!result) {
+      throw HttpError(404, `Contact with ${contactId} not found`)
+    }
+    if (JSON.stringify(req.body) === '{}') {
+      throw HttpError(400, 'missing fields')
+    }
+    res.json(result)
+}
 
 module.exports = {
     listContacts: ctrlWrapper(listContacts),
     addContact: ctrlWrapper(addContact),
     removeContact: ctrlWrapper(removeContact),
+    updateContactById: ctrlWrapper(updateContactById),
 }
