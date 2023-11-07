@@ -36,15 +36,8 @@ const contactAddSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp),
 })
 
-const contactPutSchema = Joi.object({
-  name: Joi.string(),
-  email: Joi.string(),
-  phone: Joi.string(),
-}).options({ allowUnknown: false });
-
 const schemas = {
     contactAddSchema,
-    contactPutSchema,
 }
 
 const Contact = model('contact', contactSchema)

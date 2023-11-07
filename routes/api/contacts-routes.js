@@ -16,7 +16,7 @@ router.get('/', contactsController.listContacts)
 
 router.post('/', validateBody(schemas.contactAddSchema), contactsController.addContact)
 
-router.put('/:contactId', isValidId, validateBody(schemas.contactPutSchema), contactsController.updateContactById)
+router.put('/:contactId', isValidId, contactsController.updateContactById)
 
 router.delete('/:contactId', isValidId, contactsController.removeContact)
 

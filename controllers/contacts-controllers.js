@@ -15,7 +15,6 @@ const listContacts = async (req, res) => {
 
 const addContact = async (req, res) => {
   const { _id: owner } = req.user
-  console.log(req)
     const result = await Contact.create({...req.body, owner});
     res.status(201).json(result);
 }
@@ -39,7 +38,7 @@ const updateContactById = async (req, res) => {
     if (JSON.stringify(req.body) === '{}') {
       throw HttpError(400, 'missing fields')
     }
-    res.json(result)
+    res.status(201).json(result)
 }
 
 module.exports = {
